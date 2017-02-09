@@ -1,0 +1,41 @@
+{# Админы layout #}
+
+{% extends "layout.html" %}
+
+{% block head %}
+  {{super()}}
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='admin.css') }}">
+{% endblock %}
+
+{% block title %}
+  Уулчдын холбоо - Админ хуудас
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="box border">
+      <div class="admin-menu">
+        <ul>
+          <li>Клуб</li>
+          <li>Шүүгчид</li>
+          <li>Тамирчид</li>
+          <li>Тэмцээн</li>
+          <li>Авиралт</li>
+          <li>Авиралтын зам</li>
+          <li>Арга хэмжээ</li>
+          <li>Спортын төрөл</li>
+          <li>Авиралтын замын тэмдэглэл</li>
+          <li>Нууц үг солих</li>
+          <li>Гарах</li>
+        </ul>
+      </div>
+      <div class="admin-box">
+        {% block actions %}
+        {% endblock%}
+      </div>
+    </div>
+  </div>
+  <!-- <div class="footer">
+    footer
+  </div> -->
+{% endblock %}
