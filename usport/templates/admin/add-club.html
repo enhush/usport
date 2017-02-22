@@ -7,21 +7,24 @@
   <div class="right mb10">
     <a href="{{ url_for('admin.index') }}">БУЦАХ</a>
   </div>
+
+  {% from "_formhelpers.html" import render_field %}
   <form action="{{ url_for('admin.add_club') }}" method="POST">
-    {{ form.creator(placeholder="Үүсгэн байгуулагч") }} <br>
-    {{ form.createdDate(placeholder="Байгуулагдсан огноо", type="date") }} <br>
-    {{ form.name(placeholder="Нэр") }} <br>
-    {{ form.email(placeholder="И-мэйл") }} <br>
-    {{ form.website(placeholder="Вэбсайт") }} <br>
-    {{ form.address(placeholder="Хаяг") }} <br>
-    {{ form.phone(placeholder="Утас") }} <br>
+    {{ render_field(form.creator, placeholder="Үүсгэн байгуулагч") }}
+    <br>
+    {{ render_field(form.createdDate, placeholder="Байгуулагдсан огноо", type="date") }} <br>
+    {{ render_field(form.name, placeholder="Нэр") }} <br>
+    {{ render_field(form.email, placeholder="И-мэйл") }} <br>
+    {{ render_field(form.website, placeholder="Вэбсайт") }} <br>
+    {{ render_field(form.address, placeholder="Хаяг") }} <br>
+    {{ render_field(form.phone, placeholder="Утас") }} <br>
     {{ form.csrf_token }}
     <div>
       Зохион байгуулагч
     </div>
-    {{ form.organizerName(placeholder="Нэр") }} <br>
-    {{ form.organizerPhone(placeholder="Утас") }} <br>
-    {{ form.organizerEmail(placeholder="Имэйл") }} <br>
+    {{ render_field(form.organizerName, placeholder="Нэр") }} <br>
+    {{ render_field(form.organizerPhone, placeholder="Утас") }} <br>
+    {{ render_field(form.organizerEmail, placeholder="Имэйл") }} <br>
     <input type="submit" value="Хадгалах">
   </form>
 {% endblock %}

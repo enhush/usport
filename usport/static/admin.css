@@ -42,7 +42,6 @@ ul {
 
 ul > li:hover {
   background: #ddd;
-  cursor: pointer;
 }
 
 table {
@@ -62,4 +61,8 @@ table th, table td {
 
 .mb10 {
   margin-bottom: 10px;
+}
+
+.error {
+  color: red;
 }
