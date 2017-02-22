@@ -7,4 +7,5 @@ CONFIG = DevConfig  # ProdConfig
 
 app = create_app(CONFIG)
 
-app.run()
+if __name__ == '__main__':
+    app.run(debug=CONFIG.DEBUG, host='0.0.0.0')
