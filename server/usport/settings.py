@@ -21,5 +21,7 @@ class ProdConfig(Config):
 class DevConfig(Config):
     ENV = 'dev'
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format('A:/WORK/usport/server/tmp-db/example.db')    # TODO: Change
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI', 'sqlite:///../tmp-db/example.db')
+    # SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI', 'sqlite:///A:/WORK/usport/server/tmp-db/example.db')
+    # SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format('A:/WORK/usport/server/tmp-db/example.db')    # TODO: Change
     ASSETS_DEBUG = True  # Don't bundle/minify static assets
