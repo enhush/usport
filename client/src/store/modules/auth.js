@@ -24,7 +24,7 @@ const mutations = {
 }
 
 const actions = {
-  login({ commit }, {data, router}) {
+  login({ commit, dispatch }, {data, router}) {
 
     api.auth.login(data).then(response => {
       const token = response.data.token
@@ -37,7 +37,6 @@ const actions = {
 
       router.replace({name: 'club'})
     }).catch(() => {
-
       commit(types.SET_AUTH, false)
       commit(types.SET_INVALID, true)
     })

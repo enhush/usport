@@ -68,6 +68,6 @@ class Club(Resource):
                 organiserEmail=organiserEmail,
                 organiserPhone=organiserPhone,
             )
-            return {'message': 'Successfully created'}
+            return True, 200
         except ValidationError as e:
             abort(400, message='Алдаа -> {}'.format(str(e)))

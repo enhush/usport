@@ -1,16 +1,25 @@
 <template>
+  <div class="">
     <router-view></router-view>
+    <notification-list></notification-list>
+  </div>
 </template>
 
 <script>
-import 'font-awesome-css'
-import 'bulma-css'
+import 'animate.css'
+import 'font-awesome.css'
+import 'bulma.css'
+import NotificationList from '@/components/notification/NotificationList'
 
 export default {
-  name: 'root_app',
+  components: {
+    NotificationList,
+  },
+  name: 'appRoot',
 }
 
 </script>
 
 <style>
+
 </style>

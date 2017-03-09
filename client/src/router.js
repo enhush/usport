@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from './components/Login'
-import Home from './components/Home'
-import Club from './components/admin/Club'
-import ClubAdd from './components/admin/ClubAdd'
+// import Login from './components/Login'
+// import Home from './components/Home'
+// import Club from './components/admin/Club'
+// import ClubAdd from './components/admin/ClubAdd'
 
 import store from './store'
 
@@ -15,7 +15,7 @@ const router = new VueRouter({
     {
       name: 'home',
       path: '/',
-      component: Home,
+      component: lazyView('Home'),
       meta: {
         restricted: true,
       },
@@ -23,12 +23,12 @@ const router = new VueRouter({
         {
           name: 'club',
           path: 'club',
-          component: Club,
+          component: lazyView('admin/Club'),
         },
         {
           name: 'club-add',
           path: 'club-add',
-          component: ClubAdd,
+          component: lazyView('admin/ClubAdd'),
         },
         {
           path: '*',
@@ -39,7 +39,7 @@ const router = new VueRouter({
     {
       name: 'login',
       path: '/login',
-      component: Login,
+      component: lazyView('Login'),
     },
     {
       path: '*',
@@ -59,5 +59,15 @@ router.beforeEach((to, from, next) => {
       : next()
   }
 })
+
+/**
+ * Asynchronously load view (Webpack Lazy loading compatible)
+ * @param  {string}   name     the filename (basename) of the view to load.
+ */
+function lazyView(name) {
+  return function(resolve) {
+    require([`./components/${name}.vue`], resolve)
+  }
+}
 
 export default router

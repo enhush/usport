@@ -9,13 +9,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "animate.css": "^3.5.2",
     "axios": "^0.15.3",
     "bulma": "^0.3.2",
     "font-awesome": "^4.7.0",
     "vee-validate": "^2.0.0-beta.25",
     "vue": "^2.2.1",
     "vue-router": "^2.2.0",
-    "vue-toasted": "^1.0.16",
     "vuex": "^2.2.1"
   },
   "devDependencies": {

@@ -72,6 +72,6 @@ class AuthRegister(Resource):
                 username=username,
                 is_admin=True,  # TODO just for testing
             )
-            return {'message': 'Successfully created'}
+            return True, 200
         except ValidationError as e:
             abort(400, message='Алдаа -> {}'.format(str(e)))
