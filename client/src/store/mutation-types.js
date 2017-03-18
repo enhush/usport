@@ -9,3 +9,12 @@ export const SET_CLUBS = 'SET_CLUBS'
 // notification
 export const CLOSE_NOTIFICATION = 'CLOSE_NOTIFICATION'
 export const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
+
+// judge
+export const SET_JUDGES = 'SET_JUDGES'
+
+// sport type
+export const SET_SPORT_TYPES = 'SET_SPORT_TYPES'
+
+// judge level
+export const SET_JUDGE_LEVELS = 'SET_JUDGE_LEVELS'

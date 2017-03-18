@@ -5,8 +5,8 @@ import json
 from flask import jsonify
 from flask_restful import Resource, reqparse, abort, marshal_with, fields
 
-from ..models.Club import Club_
-from ..models.User import User
+from ..models import Club as ClubModel
+from ..models import User
 
 from ..utils.errors import ValidationError
 from ..utils.decorators import login_required
@@ -16,14 +16,8 @@ class Club(Resource):
     @login_required
     def get(self):
         result = []
-        for club in Club_.query.all():
-            result.append({
-                'id': club.id,
-                'name': club.name,
-                'createdDate': club.createdDate.strftime('%Y-%m-%d'),
-                'organiserName': club.organiserName,
-                'phone': club.phone,
-            })
+        for club in ClubModel.query.all():
+            result.append(club.serialize())
         return {'data': result}
 
     @login_required
@@ -56,7 +50,7 @@ class Club(Resource):
 
         createdDate = dt.datetime.strptime(createdDate, "%Y-%m-%d").date()
         try:
-            Club_.create(
+            ClubModel.create(
                 founder=founder,
                 createdDate=createdDate,
                 name=name,

@@ -12,18 +12,20 @@
       <li>
         <router-link
           :to="{name: 'club'}"
-          :class="{'is-active': $route.matched.some(
-            record => record.name == 'club' ||
-                      record.name == 'club-add'
-            )}">
-            
+          :class="{ 'is-active': isClub }">
           Клуб
         </router-link>
       </li>
       <li>
-        <a>Шүүгчид</a>
-        <ul v-show="false">
-          <li><a>-Бүртгэл</a></li>
+        <a @click="toggle('judge')">Шүүгчид</a>
+        <ul v-show="toggles['judge']">
+          <li>
+            <router-link
+              :to="{name: 'judge'}"
+              :class="{ 'is-active': isJudge}">
+              -Бүртгэл
+            </router-link>
+          </li>
           <li><a>-Хүсэлт</a></li>
         </ul>
       </li>
@@ -57,6 +59,39 @@
 
 <script>
 export default {
+  created() {
+    this.toggles['judge'] = this.isJudge
+  },
+  data() {
+    return {
+      toggles: {
+        judge: false,
+      }
+    }
+  },
+  methods: {
+    toggle(name) {
+      switch (name) {
+        case 'judge':
+          this.toggles[name] = !this.toggles[name] || this.isJudge
+          break
+        default:
+          break
+      }
+    },
+  },
+  computed: {
+    isClub() {
+      return this.$route.matched.some(
+        record => record.name == 'club' ||
+                  record.name == 'club-add')
+    },
+    isJudge() {
+      return this.$route.matched.some(
+        record => record.name == 'judge' ||
+                  record.name == 'judge-add')
+    },
+  },
 }
 </script>
 

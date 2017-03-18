@@ -9,7 +9,7 @@
 import 'animate.css'
 import 'font-awesome.css'
 import 'bulma.css'
-import NotificationList from '@/components/notification/NotificationList'
+import NotificationList from '@/shared-components/notification/NotificationList'
 
 export default {
   components: {

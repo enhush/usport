@@ -1,9 +1,9 @@
 <template lang="html">
   <div class="column">
-    <h4 class="title is-4">Клубын жагсаалт</h4>
+    <h4 class="title is-4">Шүүгчдийн жагсаалт</h4>
     <div class="has-text-right">
       <router-link
-        :to="{name: 'club-add'}"
+        :to="{name: 'judge-add'}"
         class="button is-dark is-small">
         Нэмэх
       </router-link>
@@ -12,20 +12,22 @@
       <thead>
         <tr>
           <th>№</th>
-          <th>Нэр</th>
-          <th>Байгуулагдсан хугацаа</th>
-          <th>Зохион байгуулагч</th>
+          <th>Овог Нэр</th>
+          <th>Спортын төрөл</th>
+          <th>Зэрэг цол</th>
+          <th>Харьяа клуб</th>
           <th>Холбоо барих</th>
           <th>Үйлдлүүд</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(club, index) in clubs">
+        <tr v-for="(judge, index) in judges">
           <td>{{index+1}}</td>
-          <td>{{club.name}}</td>
-          <td>{{club.createdDate}}</td>
-          <td>{{club.organiserName}}</td>
-          <td>{{club.phone}}</td>
+          <td>{{judge.lastname.slice(0, 3) + '. ' + judge.firstname}}</td>
+          <td>{{judge.sportType.name}}</td>
+          <td>{{judge.judgeLevel.name}}</td>
+          <td>{{judge.club.name}}</td>
+          <td>{{judge.phone}}</td>
           <td class="has-text-right">
             <i class="fa fa-window-close-o content is-small" aria-hidden="true"></i>
           </td>
@@ -40,16 +42,20 @@ import { mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
   created() {
-    this.getClubs()
+    this.read()
+  },
+  data() {
+    return {
+    }
   },
   computed: {
-    ...mapState({
-      clubs: ({ club }) => club.clubs,
+    ...mapState('judge', {
+      judges: state => state.judges,
     }),
   },
   methods: {
-    ...mapActions([
-      'getClubs'
+    ...mapActions('judge', [
+      'read'
     ]),
   }
 }

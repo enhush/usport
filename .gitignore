@@ -3,6 +3,7 @@
 **/node_modules/
 **/dist/
 **/npm-debug.log*
+**/tmp-db/sqlite3.*
 
 **.py[cod]
 **.so

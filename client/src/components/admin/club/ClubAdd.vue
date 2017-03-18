@@ -67,7 +67,7 @@
         Зөв бөглөнө үү!
       </span>
     </form-input>
-    <form-textarea label="Хаяг">
+    <form-input label="Хаяг">
       <textarea slot="element"
         name="address"
         v-model="address"
@@ -78,7 +78,7 @@
       <span slot="error" v-show="errors.has('address')" class="help is-danger">
         Зөв бөглөнө үү!
       </span>
-    </form-textarea>
+    </form-input>
     <form-input label="Утас">
       <input slot="element"
         name="phone"
@@ -128,14 +128,12 @@
 </template>
 
 <script>
-import FormInput from '@/components/form-helper/FormInput'
-import FormTextarea from '@/components/form-helper/FormTextArea'
 import { mapActions, mapState, mapMutations } from 'vuex'
+import FormInput from '@/shared-components/form-helper/FormInput'
 
 export default {
   components: {
     FormInput,
-    FormTextarea,
   },
   data() {
     return {
@@ -152,14 +150,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'clubAdd'
+    ...mapActions('club', [
+      'create',
     ]),
     save() {
-        // this.$toasted.success('Шинэ клуб нэмэгдлээ', {duration: 1000})
-        // this.$toasted.error('Алдаа гарлаа', {duration: 1000})
       this.$validator.validateAll().then(() => {
-        this.clubAdd({
+        this.create({
             founder: this.founder,
             createdDate: this.createdDate,
             name: this.name,

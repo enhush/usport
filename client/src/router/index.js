@@ -1,13 +1,7 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Login from './components/Login'
-// import Home from './components/Home'
-// import Club from './components/admin/Club'
-// import ClubAdd from './components/admin/ClubAdd'
 
-import store from './store'
-
-Vue.use(VueRouter)
+import helper from '@/common/helper'
+import store from '@/store'
 
 const router = new VueRouter({
   mode: 'history',
@@ -15,31 +9,41 @@ const router = new VueRouter({
     {
       name: 'home',
       path: '/',
-      component: lazyView('Home'),
+      component: helper.lazyView('Home'),
       meta: {
         restricted: true,
       },
       children: [
         {
           name: 'club',
-          path: 'club',
-          component: lazyView('admin/Club'),
+          path: '/club',
+          component: helper.lazyView('admin/club/Club'),
         },
         {
           name: 'club-add',
-          path: 'club-add',
-          component: lazyView('admin/ClubAdd'),
+          path: '/club/add',
+          component: helper.lazyView('admin/club/ClubAdd'),
+        },
+        {
+          name: 'judge',
+          path: '/judge',
+          component: helper.lazyView('admin/judge/Judge'),
+        },
+        {
+          name: 'judge-add',
+          path: '/judge/add',
+          component: helper.lazyView('admin/judge/JudgeAdd'),
         },
         {
           path: '*',
           redirect: 'club'
-        }
+        },
       ]
     },
     {
       name: 'login',
       path: '/login',
-      component: lazyView('Login'),
+      component: helper.lazyView('Login'),
     },
     {
       path: '*',
@@ -59,15 +63,5 @@ router.beforeEach((to, from, next) => {
       : next()
   }
 })
-
-/**
- * Asynchronously load view (Webpack Lazy loading compatible)
- * @param  {string}   name     the filename (basename) of the view to load.
- */
-function lazyView(name) {
-  return function(resolve) {
-    require([`./components/${name}.vue`], resolve)
-  }
-}
 
 export default router

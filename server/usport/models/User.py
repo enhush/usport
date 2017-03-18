@@ -16,9 +16,11 @@ class User(SurrogatePK, Model):
     username = Column(db.String(80), unique=True, nullable=False)
     email = Column(db.String(80), unique=True, nullable=False)
     password = Column(db.Binary(128), nullable=False)
-    created_at = Column(db.DateTime, nullable=False, default=dt.datetime.utcnow)
+    phone = Column(db.String(20), nullable=False)
     active = Column(db.Boolean(), default=True)
-    is_admin = Column(db.Boolean(), default=False)
+    isAdmin = Column(db.Boolean(), default=False)
+    createdOn = Column(db.DateTime, nullable=False, server_default=db.func.now())
+    updatedOn = Column(db.DateTime, nullable=False, server_default=db.func.now(), onupdate=db.func.now())
 
     def __init__(self, username, email, password, **kwargs):
         db.Model.__init__(self, username=username, email=email, **kwargs)
@@ -47,3 +49,16 @@ class User(SurrogatePK, Model):
 
     def check_password(self, value):
         return bcrypt.check_password_hash(self.password, value)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'password': self.password,
+            'phone': self.phone,
+            'active': self.active,
+            'isAdmin': self.isAdmin,
+            'createdOn': self.createdOn.strftime('%Y-%m-%d %H:%M'),
+            'updatedOn': self.updatedOn.strftime('%Y-%m-%d %H:%M'),
+        }

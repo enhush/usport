@@ -2,33 +2,33 @@ import * as types from '../mutation-types'
 import api from '@/common/api'
 
 const state = {
-  clubs: [],
+  judges: [],
 }
 
 const mutations = {
-  [types.SET_CLUBS](state, data) {
-    state.clubs = data
+  [types.SET_JUDGES](state, data) {
+    state.judges = data
   },
 }
 
 const actions = {
 
   create({ dispatch }, payload) {
-    api.club.create(payload).then(() => {
+    api.judge.create(payload).then(() => {
       dispatch('showNotification', `Амжилттай`, {root: true})
       dispatch('read')
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
+    }).catch( ({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})
     })
   },
 
   read({ commit, dispatch }) {
-    api.club.read().then(({data: {data: clubs}}) => {
-      commit(types.SET_CLUBS, clubs)
+    api.judge.read().then(({data: {data: judges}}) => {
+      commit(types.SET_JUDGES, judges)
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})
     })
-  },
+  }
 }
 
 const getters = {

@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 export default {
-  add(data) {
+  create(data) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-    return axios.post('/api/v1/club', data)
+    return axios.post('/api/v1/judge', data)
   },
-  getList() {
+  read() {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-    return axios.get('/api/v1/club')
+    return axios.get('/api/v1/judge')
   },
 }

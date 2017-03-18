@@ -37,5 +37,4 @@ def db_drop():
     db.drop_all()
 
 if __name__ == '__main__':
-    # app.run(debug=CONFIG.DEBUG, host='0.0.0.0')
     manager.run()

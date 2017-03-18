@@ -1,5 +1,5 @@
 import * as types from '../mutation-types'
-import api from '@/api'
+import api from '@/common/api'
 
 const state = {
   authenticated: false,

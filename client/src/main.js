@@ -1,14 +1,20 @@
 import Vue from 'vue'
-import App from './components/App'
-import router from './router'
+import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
-import store from './store'
 
+import App from '@/components/App'
+import router from '@/router'
+import store from '@/store'
+
+/* global config */
+Vue.config.productionTip = false
+
+/* add plugins */
+Vue.use(VueRouter)
 Vue.use(VeeValidate)
 
+/* check auth */
 store.dispatch('checkAuth')
-
-Vue.config.productionTip = false
 
 new Vue({
   el: '#app',

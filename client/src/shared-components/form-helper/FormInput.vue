@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="">
-    <div class="columns is-vcentered has-text-right mb0">
-      <p class="column">
+    <div class="columns is-vcentered mb0">
+      <p class="column has-text-right">
         <label class="label content is-small">{{label}}</label>
       </p>
       <p class="column">
@@ -12,7 +12,6 @@
       <slot name="error"></slot>
     </div>
   </div>
-
 </template>
 
 <script>
