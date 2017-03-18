@@ -14,7 +14,7 @@ Vue.use(VueRouter)
 Vue.use(VeeValidate)
 
 /* check auth */
-store.dispatch('checkAuth')
+store.dispatch('check')
 
 new Vue({
   el: '#app',

@@ -37,7 +37,7 @@ class User(SurrogatePK, Model):
 
         if user.check_password(password):
             try:
-                token = jwt.encode({'id': _id}, current_app.config['SECRET_KEY'], algorithm='HS256')
+                token = jwt.encode({'id': _id, 'exp': dt.datetime.utcnow() + dt.timedelta(hours=3)}, current_app.config['SECRET_KEY'], algorithm='HS256')
                 return token, user
             except JWTError:
                 raise ValidationError('Алдаа')
