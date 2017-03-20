@@ -22,6 +22,7 @@ class Club(SurrogatePK, Model):
     organiserName = Column(db.String(80), nullable=False)
     organiserEmail = Column(db.String(80), nullable=False)
     organiserPhone = Column(db.String(20), nullable=False)
+    active = Column(db.Boolean(), default=True)
     createdOn = Column(db.DateTime, nullable=False, server_default=db.func.now())
     updatedOn = Column(db.DateTime, nullable=False, server_default=db.func.now(), onupdate=db.func.now())
 

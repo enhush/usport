@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import VeeValidate from 'vee-validate'
 
@@ -14,7 +15,7 @@ Vue.use(VueRouter)
 Vue.use(VeeValidate)
 
 /* check auth */
-store.dispatch('check')
+store.dispatch('checkAuth')
 
 new Vue({
   el: '#app',

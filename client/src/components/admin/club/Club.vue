@@ -37,8 +37,10 @@
 
 <script>
 import { mapActions, mapState, mapMutations } from 'vuex'
+import mixins from '@/common/mixins'
 
 export default {
+  mixins: [mixins.routeGuardAdmin],
   created() {
     this.read()
   },

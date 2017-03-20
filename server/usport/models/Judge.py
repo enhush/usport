@@ -16,9 +16,11 @@ class Judge(SurrogatePK, Model):
     lastname = Column(db.String(80), nullable=False)
     firstname = Column(db.String(80), nullable=False)
     phone = Column(db.String(20), nullable=False)
+    active = Column(db.Boolean(), default=True)
     judgeLevelId = reference_col('tb_judge_levels')
     sportTypeId = reference_col('tb_sport_types')
     clubId = reference_col('tb_clubs')
+    approved = Column(db.Boolean(), default=False)
     createdOn = Column(db.DateTime, nullable=False, server_default=db.func.now())
     updatedOn = Column(db.DateTime, nullable=False, server_default=db.func.now(), onupdate=db.func.now())
 

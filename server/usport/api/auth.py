@@ -59,6 +59,7 @@ class AuthRegister(Resource):
         parser.add_argument('email', type=str, help="И-мэйл оруулна уу!", required=True)
         parser.add_argument('password', type=str, help="Нууц үг оруулна уу!", required=True)
         parser.add_argument('phone', type=str, help="Утасны дугаар оруулна уу!", required=True)
+        parser.add_argument('isAdmin', type=int, choices=[0, 2], default=False)
 
         args = parser.parse_args()
 
@@ -66,14 +67,14 @@ class AuthRegister(Resource):
         email = args.get('email')
         password = args.get('password')
         phone = args.get('phone')
-
+        isAdmin = args.get('isAdmin')
         try:
             User.create(
                 email=email,
                 password=password,
                 username=username,
                 phone=phone,
-                isAdmin=True,  # TODO just for testing
+                isAdmin=isAdmin,  # TODO just for testing
             )
             return True, 200
         except ValidationError as e:

@@ -35,6 +35,21 @@ const router = new VueRouter({
           component: helper.lazyView('admin/judge/JudgeAdd'),
         },
         {
+          name: 'judge-request',
+          path: '/judge-request',
+          component: helper.lazyView('admin/judge-request/JudgeRequest'),
+        },
+        {
+          name: 'judge-request-add',
+          path: '/judge-request/add',
+          component: helper.lazyView('admin/judge-request/JudgeRequestAdd'),
+        },
+        {
+          name: 'profile',
+          path: '/profile',
+          component: helper.lazyView('user/profile'),
+        },
+        {
           path: '*',
           redirect: 'club'
         },
@@ -54,11 +69,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.restricted)) {
-    store.state.auth.authenticated
+    store.state.user.authenticated
       ? next()
       : next({name: 'login'})
   } else {
-    (to.name == 'login' && store.state.auth.authenticated)
+    (to.name == 'login' && store.state.user.authenticated)
       ? next({name: 'home'})
       : next()
   }

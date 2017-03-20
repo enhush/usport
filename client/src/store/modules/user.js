@@ -21,8 +21,7 @@ const mutations = {
 
 const actions = {
   login({ commit, dispatch }, {data, router}) {
-
-    api.auth.login(data).then(({data: {token, user}}) => {
+    api.user.login(data).then(({data: {token, user}}) => {
       localStorage.setItem('token', token)
 
       commit(types.SET_AUTH, true)
@@ -36,25 +35,45 @@ const actions = {
 
     })
   },
-  async check({ commit, dispatch }) {
+  checkAuth({ commit, dispatch }) {
 
     if (localStorage.getItem('token')) {
       commit(types.SET_AUTH, true)
 
-      api.auth.getMe().then(({data: {user}}) => {
+      api.user.getMe().then(({data: {user}}) => {
         commit(types.SET_USER, user)
       }).catch(() => {
-        localStorage.removeItem('token')
-        commit(types.SET_AUTH, false)
-        commit(types.SET_USER, {})
-        location.replace('/')
+        dispatch('logout')
       })
 
     }
   },
+  logout({commit}) {
+    localStorage.removeItem('token')
+    commit(types.SET_AUTH, false)
+    commit(types.SET_USER, {})
+    location.replace('/')
+  },
+
+  updateUser({ commit, dispatch }, payload) {
+    api.user.update(payload).then(() => {
+      // commit(types.SET_CLUBS, clubs)
+    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
+      dispatch('showNotification', message, {root: true})
+    })
+  },
 }
 
 const getters = {
+  isAdmin(state) {
+    return state.user['role']
+  },
+  username(state) {
+    return state.user['username'] || ''
+  },
+  email(state) {
+    return state.user['email'] || ''
+  },
 }
 
 

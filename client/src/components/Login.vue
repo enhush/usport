@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     ...mapState({
-      invalid: ({ auth }) => auth.invalid,
+      invalid: ({ user }) => user.invalid,
     }),
   },
   methods: {

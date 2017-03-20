@@ -8,6 +8,7 @@ import club
 import judge
 import sportType
 import judgeLevel
+import user
 
 
 blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
@@ -20,3 +21,4 @@ api.add_resource(club.Club, '/club')
 api.add_resource(judge.Judge, '/judge')
 api.add_resource(sportType.SportType, '/sportType')
 api.add_resource(judgeLevel.JudgeLevel, '/judgeLevel')
+api.add_resource(user.UserUpdate, '/user-update')

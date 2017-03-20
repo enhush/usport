@@ -14,6 +14,7 @@ class JudgeLevel(SurrogatePK, Model):
     __tablename__ = 'tb_judge_levels'
 
     name = Column(db.String(80), nullable=False)
+    active = Column(db.Boolean(), default=True)
     createdOn = Column(db.DateTime, nullable=False, server_default=db.func.now())
     updatedOn = Column(db.DateTime, nullable=False, server_default=db.func.now(), onupdate=db.func.now())
 

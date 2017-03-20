@@ -49,7 +49,7 @@
       <input slot="element"
         name="email"
         v-model="email"
-        v-validate:email.initial="'required'"
+        v-validate:email.initial="'required|email'"
         class="input is-small" type="text">
 
       <span slot="error" v-show="errors.has('email')" class="help is-danger">
@@ -117,7 +117,7 @@
       <input slot="element"
         name="organiserEmail"
         v-model="organiserEmail"
-        v-validate:organiserEmail.initial="'required'"
+        v-validate:organiserEmail.initial="'required|email'"
         class="input is-small" type="email">
 
       <span slot="error" v-show="errors.has('organiserEmail')" class="help is-danger">

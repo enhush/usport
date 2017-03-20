@@ -13,6 +13,9 @@ export const ADD_NOTIFICATION = 'ADD_NOTIFICATION'
 // judge
 export const SET_JUDGES = 'SET_JUDGES'
 
+// judge request
+export const SET_JUDGE_REQUESTS = 'SET_JUDGE_REQUESTS'
+
 // sport type
 export const SET_SPORT_TYPES = 'SET_SPORT_TYPES'
 
