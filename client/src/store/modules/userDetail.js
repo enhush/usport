@@ -30,7 +30,7 @@ const actions = {
 
   update({ commit, dispatch }, payload) {
     api.userDetail.update(payload).then(({data: {userDetail}}) => {
-      dispatch('showNotification', `Амжилттай`)
+      dispatch('showNotification', `Амжилттай`, {root: true})
       commit(types.SET_USER_DETAIL, userDetail)
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})

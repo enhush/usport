@@ -41,13 +41,13 @@
         <div class="column">
           <div class="level-item">
             <figure class="image is-96x96">
-              <img v-if="image" :src="image">
+              <img v-if="_image && _image !== 'changed'" :src="_image">
               <img v-else src="http://bulma.io/images/placeholders/96x96.png">
             </figure>
           </div>
 
           <div class="level-item mb10">
-            <input v-if="image" type="button" @click="removeImage" value="Солих">
+            <input v-if="_image && _image !== 'changed'" type="button" @click="removeImage" value="Солих">
             <input v-else type="file" @change="fileChanged" class="is-small">
           </div>
 
@@ -111,13 +111,15 @@
               </label>
             </div>
           </form-input>
+        </div>
+        <div class="column">
           <form-input label="Төрсөн өдөр">
             <input slot="element"
-              name="birthday"
-              v-model="birthday"
-              v-validate:birthday.initial="'required'"
-              class="input is-small"
-              type="date">
+            name="birthday"
+            v-model="birthday"
+            v-validate:birthday.initial="'required'"
+            class="input is-small"
+            type="date">
 
             <span slot="error" v-show="errors.has('detail.birthday')" class="help is-danger">
               Зөв бөглөнө үү!
@@ -125,17 +127,15 @@
           </form-input>
           <form-input label="Утас">
             <input slot="element"
-              name="phone"
-              v-model="phone"
-              v-validate:phone.initial="'required'"
-              class="input is-small"
-              type="text">
+            name="phone"
+            v-model="phone"
+            v-validate:phone.initial="'required'"
+            class="input is-small"
+            type="text">
             <span slot="error" v-show="errors.has('detail.phone')" class="help is-danger">
               Зөв бөглөнө үү!
             </span>
           </form-input>
-        </div>
-        <div class="column">
           <form-input label="Гэрийн хаяг">
             <textarea slot="element"
               name="address"
@@ -222,6 +222,9 @@
             </span>
           </form-input>
           <div class="has-text-right mt10">
+            <a class="button is-dark is-small" @click="reset()">
+              Эхний төлөв
+            </a>
             <a class="button is-dark is-small" @click="updateDetail()">
               Хадгалах
             </a>
@@ -249,8 +252,8 @@ export default {
   },
   data() {
     return {
-      image: '',
       file: null,
+      image: '',
       _username: '',
       _email: '',
 
@@ -280,6 +283,9 @@ export default {
       defaultUsername: 'username',
       defaultEmail: 'email',
     }),
+    _image() {
+      return this.image || this.defaultUserDetail.image
+    },
     username: {
       get() {
         return this._username || this.defaultUsername
@@ -419,6 +425,27 @@ export default {
       readUserDetail: 'read',
       updateUserDetail: 'update',
     }),
+    reset() {
+      this.file = null
+      this.image = ''
+      this._username = ''
+      this._email = ''
+
+      this._register = ''
+      this._familyname = ''
+      this._lastname = ''
+      this._firstname = ''
+      this._sex = ''
+      this._birthday = ''
+      this._phone = ''
+      this._address = ''
+      this._detailEmail = ''
+      this._clubId = ''
+      this._sportTypeId = ''
+      this._contactName = ''
+      this._contactPhone = ''
+      this._contactAddress = ''
+    },
     updateBasic() {
       this.$validator.validateAll('basic').then(() => {
         this.updateUserBasic({
@@ -472,7 +499,7 @@ export default {
       reader.readAsDataURL(file)
     },
     removeImage(event) {
-      this.image = ''
+      this.image = 'changed'
       this.file = null
     }
   },

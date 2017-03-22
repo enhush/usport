@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import datetime as dt
+import os
 from jose import jwt
 
 from flask import current_app
@@ -17,7 +18,7 @@ class UserDetail(SurrogatePK, Model):
     familyname = Column(db.String(80), nullable=False)
     lastname = Column(db.String(80), nullable=False)
     firstname = Column(db.String(80), nullable=False)
-    sex = Column(db.Boolean(), default=False)  # 0 - male, 1 - female
+    sex = Column(db.Boolean(), default=False)  # 0 - female, 1 - male
     birthday = Column(db.Date, nullable=False)
     phone = Column(db.String(20), nullable=False)
     address = Column(db.String(200), nullable=False)
@@ -39,7 +40,9 @@ class UserDetail(SurrogatePK, Model):
     user = relationship("User", backref="userDetails")
 
     def serialize(self):
+        image = os.path.join('/', current_app.config['PROFILE_IMAGE_DIR'], self.image) if self.image else ''
         return {
+            'image': image,
             'id': self.id,
             'register': self.register,
             'familyname': self.familyname,

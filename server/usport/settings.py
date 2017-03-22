@@ -9,6 +9,7 @@ class Config(object):
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    PROFILE_IMAGE_DIR = 'profile-image'
 
 
 class ProdConfig(Config):

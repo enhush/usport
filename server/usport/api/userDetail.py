@@ -11,6 +11,7 @@ from ..models import UserDetail as UserDetailModel
 
 from ..utils.errors import ValidationError
 from ..utils.decorators import login_required
+from ..utils.helper import saveProfileImage, deleteProfileImage
 
 
 class UserDetail(Resource):
@@ -40,6 +41,7 @@ class UserDetailUpdate(Resource):
         parser.add_argument('contactName', type=unicode, help="Холбоо барих хүний нэр оруулна уу!", required=True)
         parser.add_argument('contactPhone', type=str, help="Холбоо барих хүний утас оруулна уу!", required=True)
         parser.add_argument('contactAddress', type=unicode, help="Холбоо барих хүний хаяг оруулна уу!", required=True)
+        parser.add_argument('image', type=werkzeug.datastructures.FileStorage, location='files')
 
         args = parser.parse_args()
 
@@ -57,10 +59,16 @@ class UserDetailUpdate(Resource):
         contactName = args.get('contactName')
         contactPhone = args.get('contactPhone')
         contactAddress = args.get('contactAddress')
+        image = args.get('image')
 
         birthday = dt.datetime.strptime(birthday, "%Y-%m-%d").date()
+
         try:
-            UserDetailModel.create(
+            userDetail = UserDetailModel.query.get(g.user.id)
+
+            image = saveProfileImage(image) if image else userDetail.image
+            deleteProfileImage(userDetail.image)
+            userDetail.update(
                 register=register,
                 familyname=familyname,
                 lastname=lastname,
@@ -70,12 +78,13 @@ class UserDetailUpdate(Resource):
                 phone=phone,
                 address=address,
                 email=email,
+                image=image,
                 sportTypeId=sportTypeId,
                 clubId=clubId,
                 contactName=contactName,
                 contactPhone=contactPhone,
                 contactAddress=contactAddress,
             )
-            return True, 200
+            return {'userDetail': userDetail.serialize()}
         except ValidationError as e:
             abort(400, message='Алдаа -> {}'.format(str(e)))
