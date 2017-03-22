@@ -40,7 +40,7 @@ class UserDetail(SurrogatePK, Model):
     user = relationship("User", backref="userDetails")
 
     def serialize(self):
-        image = os.path.join('/', current_app.config['PROFILE_IMAGE_DIR'], self.image) if self.image else ''
+        image = os.path.join('/', 'static', current_app.config['PROFILE_IMAGE_DIR'], self.image) if self.image else ''
         return {
             'image': image,
             'id': self.id,
