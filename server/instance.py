@@ -23,18 +23,11 @@ def root():
 def other(path):
     return render_template('index.html')
 
+
+migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
-
-@manager.command
-def db_create():
-    db.create_all()
-
-
-@manager.command
-def db_drop():
-    db.drop_all()
 
 if __name__ == '__main__':
     manager.run()

@@ -6,6 +6,7 @@ import sportType from './modules/sportType'
 import judgeLevel from './modules/judgeLevel'
 import judgeRequest from './modules/judgeRequest'
 import user from './modules/user'
+import userDetail from './modules/userDetail'
 
 import notification from './modules/notification'
 
@@ -20,6 +21,7 @@ const store = new Vuex.Store({
     notification,
     judgeRequest,
     user,
+    userDetail,
   }
 })
 

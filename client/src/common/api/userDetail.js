@@ -1,16 +1,14 @@
 import axios from 'axios'
 
 export default {
-  login(data) {
+  get() {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-    return axios.post('/api/v1/login', data)
+    return axios.get(`/api/v1/user-detail`)
   },
-  getMe() {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-    return axios.get(`/api/v1/user`)
-  },
+
+  // because of uploading data, used POST instead of PUT
   update(data) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`
-    return axios.put('/api/v1/user', data)
+    return axios.post('/api/v1/user-detail-update', data)
   },
 }

@@ -21,3 +21,6 @@ export const SET_SPORT_TYPES = 'SET_SPORT_TYPES'
 
 // judge level
 export const SET_JUDGE_LEVELS = 'SET_JUDGE_LEVELS'
+
+// user detail
+export const SET_USER_DETAIL = 'SET_USER_DETAIL'

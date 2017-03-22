@@ -55,9 +55,10 @@ const actions = {
     location.replace('/')
   },
 
-  updateUser({ commit, dispatch }, payload) {
-    api.user.update(payload).then(() => {
-      // commit(types.SET_CLUBS, clubs)
+  update({ commit, dispatch }, payload) {
+    api.user.update(payload).then(({data: {user}}) => {
+      dispatch('showNotification', `Амжилттай`)
+      commit(types.SET_USER, user)
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})
     })

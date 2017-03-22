@@ -6,3 +6,4 @@ from User import User
 from Judge import Judge
 from JudgeLevel import JudgeLevel
 from SportType import SportType
+from UserDetail import UserDetail

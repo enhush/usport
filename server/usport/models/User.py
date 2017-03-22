@@ -52,13 +52,8 @@ class User(SurrogatePK, Model):
 
     def serialize(self):
         return {
-            'id': self.id,
             'username': self.username,
             'email': self.email,
-            'password': self.password,
             'phone': self.phone,
-            'active': self.active,
-            'isAdmin': self.isAdmin,
-            'createdOn': self.createdOn.strftime('%Y-%m-%d %H:%M'),
-            'updatedOn': self.updatedOn.strftime('%Y-%m-%d %H:%M'),
+            'role': self.isAdmin,
         }

@@ -9,16 +9,16 @@ import judge
 import sportType
 import judgeLevel
 import user
-
+import userDetail
 
 blueprint = Blueprint('api', __name__, url_prefix='/api/v1')
 api = Api(blueprint)
 
-api.add_resource(auth.AuthLogin, '/auth/login')
-api.add_resource(auth.AuthRegister, '/auth/register')
-api.add_resource(auth.AuthMe, '/auth/me')
 api.add_resource(club.Club, '/club')
 api.add_resource(judge.Judge, '/judge')
 api.add_resource(sportType.SportType, '/sportType')
 api.add_resource(judgeLevel.JudgeLevel, '/judgeLevel')
-api.add_resource(user.UserUpdate, '/user-update')
+api.add_resource(user.User, '/user')
+api.add_resource(user.Login, '/login')
+api.add_resource(userDetail.UserDetail, '/user-detail')
+api.add_resource(userDetail.UserDetailUpdate, '/user-detail-update')
