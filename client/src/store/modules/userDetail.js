@@ -34,6 +34,9 @@ const actions = {
       commit(types.SET_USER_DETAIL, userDetail)
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})
+      if (message.includes("jwt-error")) {
+        dispatch('logout', {root: true})
+      }
     })
   },
 }

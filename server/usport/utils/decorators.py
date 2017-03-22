@@ -25,6 +25,6 @@ def login_required(f):
                 abort(404, message="Нэвтрэх эрхгүй")
             return f(*args, **kwargs)
         except JWTError as e:
-            abort(400, message="Алдаа -> {}".format(str(e)))
+            abort(400, message="Алдаа -> jwt-error {}".format(str(e)))
 
     return func

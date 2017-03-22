@@ -19,6 +19,9 @@ const actions = {
       dispatch('read')
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})
+      if (message.includes("jwt-error")) {
+        dispatch('logout', {root: true})
+      }
     })
   },
 
@@ -27,6 +30,9 @@ const actions = {
       commit(types.SET_CLUBS, clubs)
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
       dispatch('showNotification', message, {root: true})
+      if (message.includes("jwt-error")) {
+        dispatch('logout', {root: true})
+      }
     })
   },
 }

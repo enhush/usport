@@ -60,7 +60,10 @@ const actions = {
       dispatch('showNotification', `Амжилттай`)
       commit(types.SET_USER, user)
     }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
+      dispatch('showNotification', message)
+      if (message.includes("jwt-error")) {
+        dispatch('logout')
+      }
     })
   },
 }
