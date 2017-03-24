@@ -9,27 +9,25 @@ import { mapActions } from 'vuex'
 
 export default {
   props: ['notification'],
-  data() {
+  data () {
     return {
       timer: null
     }
   },
   methods: {
     ...mapActions([
-      'closeNotification',
-    ]),
+      'closeNotification'
+    ])
   },
-  created() {
-     const timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true
-     if (timeout) {
-       this.timer = setTimeout(() => {
-
-         clearTimeout(this.timer)
-         this.notification.animation = 'fadeIn'
-         this.closeNotification(this.notification)
-
-       }, 3000)
-     }
+  created () {
+    const timeout = this.notification.hasOwnProperty('timeout') ? this.notification.timeout : true
+    if (timeout) {
+      this.timer = setTimeout(() => {
+        clearTimeout(this.timer)
+        this.notification.animation = 'fadeIn'
+        this.closeNotification(this.notification)
+      }, 3000)
+    }
   }
 }
 </script>

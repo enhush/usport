@@ -1,50 +1,46 @@
 import * as types from '../mutation-types'
 import api from '@/common/api'
+import helper from '@/common/helper'
 
 const state = {
-  clubs: [],
+  clubs: []
 }
 
 const mutations = {
-  [types.SET_CLUBS](state, data) {
+  [types.SET_CLUBS] (state, data) {
     state.clubs = data
-  },
+  }
 }
 
 const actions = {
 
-  create({ dispatch }, payload) {
-    api.club.create(payload).then(() => {
-      dispatch('showNotification', `Амжилттай`, {root: true})
+  async create ({ dispatch }, payload) {
+    try {
+      await api.club.create(payload)
       dispatch('read')
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
+      dispatch('showNotification', `Амжилттай`, {root: true})
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
   },
 
-  read({ commit, dispatch }) {
-    api.club.read().then(({data: {data: clubs}}) => {
+  async read ({ commit, dispatch }) {
+    try {
+      const {data: {data: clubs}} = await api.club.read()
       commit(types.SET_CLUBS, clubs)
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
-  },
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
+  }
 }
 
 const getters = {
 }
-
 
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters,
+  getters
 }

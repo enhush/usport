@@ -1,38 +1,36 @@
 import * as types from '../mutation-types'
 import api from '@/common/api'
+import helper from '@/common/helper'
 
 const state = {
   judgeLevels: []
 }
 
 const mutations = {
-  [types.SET_JUDGE_LEVELS](state, data) {
+  [types.SET_JUDGE_LEVELS] (state, data) {
     state.judgeLevels = data
-  },
+  }
 }
 
 const actions = {
 
-  read({ commit, dispatch }) {
-    api.judgeLevel.read().then(({data: {data: judgeLevels}}) => {
+  async read ({ commit, dispatch }) {
+    try {
+      const {data: {data: judgeLevels}} = await api.judgeLevel.read()
       commit(types.SET_JUDGE_LEVELS, judgeLevels)
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
   }
 }
 
 const getters = {
 }
 
-
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters,
+  getters
 }

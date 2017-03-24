@@ -1,50 +1,46 @@
 import * as types from '../mutation-types'
 import api from '@/common/api'
+import helper from '@/common/helper'
 
 const state = {
-  judges: [],
+  judges: []
 }
 
 const mutations = {
-  [types.SET_JUDGES](state, data) {
+  [types.SET_JUDGES] (state, data) {
     state.judges = data
-  },
+  }
 }
 
 const actions = {
 
-  create({ dispatch }, payload) {
-    api.judge.create(payload).then(() => {
-      dispatch('showNotification', `Амжилттай`, {root: true})
+  async create ({ dispatch }, payload) {
+    try {
+      await api.judge.create(payload)
       dispatch('read')
-    }).catch( ({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
+      dispatch('showNotification', `Амжилттай`, {root: true})
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
   },
 
-  read({ commit, dispatch }) {
-    api.judge.read().then(({data: {data: judges}}) => {
+  async read ({ commit, dispatch }) {
+    try {
+      const {data: {data: judges}} = await api.judge.read()
       commit(types.SET_JUDGES, judges)
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
   }
 }
 
 const getters = {
 }
 
-
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters,
+  getters
 }

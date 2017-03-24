@@ -11,60 +11,60 @@ const router = new VueRouter({
       path: '/',
       component: helper.lazyView('Home'),
       meta: {
-        restricted: true,
+        restricted: true
       },
       children: [
         {
           name: 'club',
           path: '/club',
-          component: helper.lazyView('admin/club/Club'),
+          component: helper.lazyView('admin/club/Club')
         },
         {
           name: 'club-add',
           path: '/club/add',
-          component: helper.lazyView('admin/club/ClubAdd'),
+          component: helper.lazyView('admin/club/ClubAdd')
         },
         {
           name: 'judge',
           path: '/judge',
-          component: helper.lazyView('admin/judge/Judge'),
+          component: helper.lazyView('admin/judge/Judge')
         },
         {
           name: 'judge-add',
           path: '/judge/add',
-          component: helper.lazyView('admin/judge/JudgeAdd'),
+          component: helper.lazyView('admin/judge/JudgeAdd')
         },
         {
           name: 'judge-request',
           path: '/judge-request',
-          component: helper.lazyView('admin/judge-request/JudgeRequest'),
+          component: helper.lazyView('admin/judge-request/JudgeRequest')
         },
         {
           name: 'judge-request-add',
           path: '/judge-request/add',
-          component: helper.lazyView('admin/judge-request/JudgeRequestAdd'),
+          component: helper.lazyView('admin/judge-request/JudgeRequestAdd')
         },
         {
           name: 'profile',
           path: '/profile',
-          component: helper.lazyView('user/profile'),
+          component: helper.lazyView('user/profile')
         },
         {
           path: '*',
           redirect: 'club'
-        },
+        }
       ]
     },
     {
       name: 'login',
       path: '/login',
-      component: helper.lazyView('Login'),
+      component: helper.lazyView('Login')
     },
     {
       path: '*',
-      redirect: '/login',
+      redirect: '/login'
     }
-  ],
+  ]
 })
 
 router.beforeEach((to, from, next) => {
@@ -73,7 +73,7 @@ router.beforeEach((to, from, next) => {
       ? next()
       : next({name: 'login'})
   } else {
-    (to.name == 'login' && store.state.user.authenticated)
+    (to.name === 'login' && store.state.user.authenticated)
       ? next({name: 'home'})
       : next()
   }

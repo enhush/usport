@@ -5,10 +5,10 @@ const state = {
 }
 
 const mutations = {
-  [types.ADD_NOTIFICATION](state, data) {
+  [types.ADD_NOTIFICATION] (state, data) {
     state.notifications.push(data)
   },
-  [types.CLOSE_NOTIFICATION](state, data) {
+  [types.CLOSE_NOTIFICATION] (state, data) {
     const index = state.notifications.indexOf(data)
     if (index > -1) {
       state.notifications.splice(index, 1)
@@ -17,15 +17,15 @@ const mutations = {
 }
 
 const actions = {
-  showNotification({ commit }, msg) {
+  showNotification ({ commit }, msg) {
     const notification = {
       type: 'error',
       animation: 'fadeIn',
-      msg,
+      msg
     }
     commit(types.ADD_NOTIFICATION, notification)
   },
-  closeNotification({ commit }, payload) {
+  closeNotification ({ commit }, payload) {
     setTimeout(() => {
       commit(types.CLOSE_NOTIFICATION, payload)
     }, 500)
@@ -35,5 +35,5 @@ const actions = {
 export default {
   state,
   mutations,
-  actions,
+  actions
 }

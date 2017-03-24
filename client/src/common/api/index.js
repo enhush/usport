@@ -14,5 +14,5 @@ export default {
   sportType,
   judgeLevel,
   user,
-  userDetail,
+  userDetail
 }

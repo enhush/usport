@@ -1,89 +1,89 @@
 import * as types from '../mutation-types'
 import api from '@/common/api'
+import helper from '@/common/helper'
 
 const state = {
   authenticated: false,
   user: {},
-  invalid: false,
+  invalid: false
 }
 
 const mutations = {
-  [types.SET_AUTH] (state, data) {
-    state.authenticated = data
+  [types.SET_AUTH] (state, payload) {
+    state.authenticated = payload
   },
-  [types.SET_USER] (state, data) {
-    state.user = Object.assign({}, data)
+  [types.SET_USER] (state, payload) {
+    state.user = Object.assign({}, payload)
   },
-  [types.SET_INVALID] (state, data) {
-    state.invalid = data
+  [types.SET_INVALID] (state, payload) {
+    state.invalid = payload
   },
+  [types.LOGGED_IN] (state, {token, user}) {
+    localStorage.setItem('token', token)
+    state.authenticated = true
+    state.user = Object.assign({}, user)
+  },
+  [types.LOGGED_OUT] (state) {
+    localStorage.removeItem('token')
+    state.authenticated = false
+    state.user = {}
+  }
 }
 
 const actions = {
-  login({ commit, dispatch }, {data, router}) {
-    api.user.login(data).then(({data: {token, user}}) => {
-      localStorage.setItem('token', token)
-
-      commit(types.SET_AUTH, true)
-      commit(types.SET_USER, user)
-
-      router.replace({name: 'club'})
-    }).catch(() => {
-      commit(types.SET_AUTH, false)
+  async login ({ commit, dispatch }, payload) {
+    try {
+      const {data: userAndToken} = await api.user.login(payload)
+      commit(types.LOGGED_IN, userAndToken)
+      location.replace('/')
+    } catch (e) {
+      commit(types.LOGGED_OUT)
       commit(types.SET_INVALID, true)
-      localStorage.removeItem('token')
-
-    })
-  },
-  checkAuth({ commit, dispatch }) {
-
-    if (localStorage.getItem('token')) {
-      commit(types.SET_AUTH, true)
-
-      api.user.getMe().then(({data: {user}}) => {
-        commit(types.SET_USER, user)
-      }).catch(() => {
-        dispatch('logout')
-      })
-
     }
   },
-  logout({commit}) {
-    localStorage.removeItem('token')
-    commit(types.SET_AUTH, false)
-    commit(types.SET_USER, {})
-    location.replace('/')
-  },
-
-  update({ commit, dispatch }, payload) {
-    api.user.update(payload).then(({data: {user}}) => {
-      dispatch('showNotification', `Амжилттай`)
-      commit(types.SET_USER, user)
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message)
-      if (message.includes("jwt-error")) {
+  async checkAuth ({ commit, dispatch }) {
+    if (localStorage.getItem('token')) {
+      commit(types.SET_AUTH, true)
+      try {
+        const {data: {user}} = await api.user.get()
+        commit(types.SET_USER, user)
+      } catch (e) {
         dispatch('logout')
       }
-    })
+    }
   },
+  logout ({commit}) {
+    commit(types.LOGGED_OUT)
+    location.replace('/login')
+  },
+
+  async update ({ commit, dispatch }, payload) {
+    try {
+      const {data: {user}} = await api.user.update(payload)
+      commit(types.SET_USER, user)
+
+      dispatch('showNotification', `Амжилттай`)
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
+  }
 }
 
 const getters = {
-  isAdmin(state) {
+  isAdmin (state) {
     return state.user['role']
   },
-  username(state) {
+  username (state) {
     return state.user['username'] || ''
   },
-  email(state) {
+  email (state) {
     return state.user['email'] || ''
-  },
+  }
 }
-
 
 export default {
   state,
   mutations,
   actions,
-  getters,
+  getters
 }

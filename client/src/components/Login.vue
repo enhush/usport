@@ -60,16 +60,16 @@ import { mapActions, mapState, mapMutations } from 'vuex'
 import * as types from '@/store/mutation-types'
 
 export default {
-  data() {
+  data () {
     return {
       email: '',
-      password: '',
+      password: ''
     }
   },
   computed: {
     ...mapState({
-      invalid: ({ user }) => user.invalid,
-    }),
+      invalid: ({ user }) => user.invalid
+    })
   },
   methods: {
     ...mapMutations({
@@ -78,17 +78,14 @@ export default {
     ...mapActions([
       'login'
     ]),
-    beforeLogin() {
+    beforeLogin () {
       this.$validator.validateAll().then(() => {
         this.login({
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-          router: this.$router,
+          email: this.email,
+          password: this.password
         })
       }).catch(() => {})
-    },
+    }
   }
 }
 </script>

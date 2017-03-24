@@ -44,26 +44,26 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  created() {
+  created () {
     this.read()
   },
-  data() {
+  data () {
     return {
-      judgeRequests: [1],
+      judgeRequests: [1]
     }
   },
   computed: {
     ...mapState('judgeRequest', {
-      judgeRequests_: state => state.judgeRequests,
-    }),
+      judgeRequests_: state => state.judgeRequests
+    })
   },
   methods: {
     ...mapActions('judgeRequest', [
       'read'
-    ]),
+    ])
   }
 }
 </script>

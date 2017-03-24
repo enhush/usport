@@ -36,23 +36,23 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import mixins from '@/common/mixins'
 
 export default {
   mixins: [mixins.routeGuardAdmin],
-  created() {
+  created () {
     this.read()
   },
   computed: {
     ...mapState('club', {
       clubs: state => state.clubs
-    }),
+    })
   },
   methods: {
     ...mapActions('club', [
-      'read',
-    ]),
+      'read'
+    ])
   }
 }
 </script>

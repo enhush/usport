@@ -74,16 +74,16 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  created() {
+  created () {
     this.toggles['judge'] = this.isJudge
   },
-  data() {
+  data () {
     return {
       toggles: {
-        judge: false,
+        judge: false
       }
     }
   },
@@ -91,7 +91,7 @@ export default {
     ...mapActions([
       'logout'
     ]),
-    toggle(name) {
+    toggle (name) {
       switch (name) {
         case 'judge':
           this.toggles[name] = !this.toggles[name] || this.isJudge || this.isJudgeRequest
@@ -99,32 +99,32 @@ export default {
         default:
           break
       }
-    },
+    }
   },
   computed: {
     ...mapGetters([
-      'isAdmin',
+      'isAdmin'
     ]),
-    isClub() {
+    isClub () {
       return this.$route.matched.some(
-        record => record.name == 'club' ||
-                  record.name == 'club-add')
+        record => record.name === 'club' ||
+                  record.name === 'club-add')
     },
-    isJudge() {
+    isJudge () {
       return this.$route.matched.some(
-        record => record.name == 'judge' ||
-                  record.name == 'judge-add')
+        record => record.name === 'judge' ||
+                  record.name === 'judge-add')
     },
-    isJudgeRequest() {
+    isJudgeRequest () {
       return this.$route.matched.some(
-        record => record.name == 'judge-request' ||
-                  record.name == 'judge-request-add')
+        record => record.name === 'judge-request' ||
+                  record.name === 'judge-request-add')
     },
-    isProfile() {
+    isProfile () {
       return this.$route.matched.some(
-        record => record.name == 'profile')
-    },
-  },
+        record => record.name === 'profile')
+    }
+  }
 }
 </script>
 

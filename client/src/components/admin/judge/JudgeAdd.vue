@@ -88,45 +88,45 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import FormInput from '@/shared-components/form-helper/FormInput'
 
 export default {
   components: {
-    FormInput,
+    FormInput
   },
-  created() {
+  created () {
     this.readSportTypes()
     this.readJudgeLevels()
     this.readClubs()
   },
-  data() {
+  data () {
     return {
       lastname: '',
       firstname: '',
       phone: '',
       sportTypeId: 1,
       judgeLevelId: 1,
-      clubId: 1,
+      clubId: 1
     }
   },
   computed: {
     ...mapState({
       sportTypes: ({ sportType }) => sportType.sportTypes,
       judgeLevels: ({ judgeLevel }) => judgeLevel.judgeLevels,
-      clubs: ({ club }) => club.clubs,
-    }),
+      clubs: ({ club }) => club.clubs
+    })
   },
   methods: {
     ...mapActions('judge', [
-      'create',
+      'create'
     ]),
     ...mapActions({
       readSportTypes: 'sportType/read',
       readJudgeLevels: 'judgeLevel/read',
-      readClubs: 'club/read',
+      readClubs: 'club/read'
     }),
-    save() {
+    save () {
       this.$validator.validateAll().then(() => {
         this.create({
           lastname: this.lastname,
@@ -134,10 +134,10 @@ export default {
           phone: this.phone,
           sportTypeId: this.sportTypeId,
           judgeLevelId: this.judgeLevelId,
-          clubId: this.clubId,
+          clubId: this.clubId
         })
       }).catch(() => {})
-    },
+    }
   }
 }
 </script>

@@ -13,9 +13,9 @@ import NotificationList from '@/shared-components/notification/NotificationList'
 
 export default {
   components: {
-    NotificationList,
+    NotificationList
   },
-  name: 'appRoot',
+  name: 'appRoot'
 }
 
 </script>

@@ -128,14 +128,14 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import FormInput from '@/shared-components/form-helper/FormInput'
 
 export default {
   components: {
-    FormInput,
+    FormInput
   },
-  data() {
+  data () {
     return {
       founder: '',
       createdDate: '',
@@ -146,29 +146,29 @@ export default {
       phone: '',
       organiserName: '',
       organiserEmail: '',
-      organiserPhone: '',
+      organiserPhone: ''
     }
   },
   methods: {
     ...mapActions('club', [
-      'create',
+      'create'
     ]),
-    save() {
+    save () {
       this.$validator.validateAll().then(() => {
         this.create({
-            founder: this.founder,
-            createdDate: this.createdDate,
-            name: this.name,
-            email: this.email,
-            website: this.website,
-            address: this.address,
-            phone: this.phone,
-            organiserName: this.organiserName,
-            organiserEmail: this.organiserEmail,
-            organiserPhone: this.organiserPhone,
+          founder: this.founder,
+          createdDate: this.createdDate,
+          name: this.name,
+          email: this.email,
+          website: this.website,
+          address: this.address,
+          phone: this.phone,
+          organiserName: this.organiserName,
+          organiserEmail: this.organiserEmail,
+          organiserPhone: this.organiserPhone
         })
       }).catch(() => {})
-    },
+    }
   }
 }
 </script>

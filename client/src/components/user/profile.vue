@@ -236,21 +236,21 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 import FormInput from '@/shared-components/form-helper/FormInput'
 import mixins from '@/common/mixins'
 
 export default {
   components: {
-    FormInput,
+    FormInput
   },
   mixins: [mixins.routeGuardUser],
-  created() {
+  created () {
     this.readUserDetail()
     this.readClubs()
     this.readSportTypes()
   },
-  data() {
+  data () {
     return {
       file: null,
       image: '',
@@ -270,162 +270,162 @@ export default {
       _sportTypeId: '',
       _contactName: '',
       _contactPhone: '',
-      _contactAddress: '',
+      _contactAddress: ''
     }
   },
   computed: {
     ...mapState({
       defaultUserDetail: ({ userDetail }) => userDetail.userDetail,
       sportTypes: ({ sportType }) => sportType.sportTypes,
-      clubs: ({ club }) => club.clubs,
+      clubs: ({ club }) => club.clubs
     }),
     ...mapGetters({
       defaultUsername: 'username',
-      defaultEmail: 'email',
+      defaultEmail: 'email'
     }),
-    _image() {
+    _image () {
       return this.image || this.defaultUserDetail.image
     },
     username: {
-      get() {
+      get () {
         return this._username || this.defaultUsername
       },
-      set(value) {
+      set (value) {
         this._username = value
       }
     },
     email: {
-      get() {
+      get () {
         return this._email || this.defaultEmail
       },
-      set(value) {
+      set (value) {
         this._email = value
       }
     },
     register: {
-      get() {
+      get () {
         return this._register || this.defaultUserDetail.register
       },
-      set(value) {
+      set (value) {
         this._register = value
       }
     },
     familyname: {
-      get() {
+      get () {
         return this._familyname || this.defaultUserDetail.familyname
       },
-      set(value) {
+      set (value) {
         this._familyname = value
       }
     },
     lastname: {
-      get() {
+      get () {
         return this._lastname || this.defaultUserDetail.lastname
       },
-      set(value) {
+      set (value) {
         this._lastname = value
       }
     },
     firstname: {
-      get() {
+      get () {
         return this._firstname || this.defaultUserDetail.firstname
       },
-      set(value) {
+      set (value) {
         this._firstname = value
       }
     },
     sex: {
-      get() {
+      get () {
         return this._sex || this.defaultUserDetail.sex
       },
-      set(value) {
+      set (value) {
         this._sex = value
       }
     },
     birthday: {
-      get() {
+      get () {
         return this._birthday || this.defaultUserDetail.birthday
       },
-      set(value) {
+      set (value) {
         this._birthday = value
       }
     },
     phone: {
-      get() {
+      get () {
         return this._phone || this.defaultUserDetail.phone
       },
-      set(value) {
+      set (value) {
         this._phone = value
       }
     },
     address: {
-      get() {
+      get () {
         return this._address || this.defaultUserDetail.address
       },
-      set(value) {
+      set (value) {
         this._address = value
       }
     },
     detailEmail: {
-      get() {
+      get () {
         return this._detailEmail || this.defaultUserDetail.email
       },
-      set(value) {
+      set (value) {
         this._detailEmail = value
       }
     },
     clubId: {
-      get() {
+      get () {
         return this._clubId || this.defaultUserDetail.club.id
       },
-      set(value) {
+      set (value) {
         this._clubId = value
       }
     },
     sportTypeId: {
-      get() {
+      get () {
         return this._sportTypeId || this.defaultUserDetail.sportType.id
       },
-      set(value) {
+      set (value) {
         this._sportTypeId = value
       }
     },
     contactName: {
-      get() {
+      get () {
         return this._contactName || this.defaultUserDetail.contactName
       },
-      set(value) {
+      set (value) {
         this._contactName = value
       }
     },
     contactPhone: {
-      get() {
+      get () {
         return this._contactPhone || this.defaultUserDetail.contactPhone
       },
-      set(value) {
+      set (value) {
         this._contactPhone = value
       }
     },
     contactAddress: {
-      get() {
+      get () {
         return this._contactAddress || this.defaultUserDetail.contactAddress
       },
-      set(value) {
+      set (value) {
         this._contactAddress = value
       }
-    },
+    }
   },
   methods: {
     ...mapActions({
       updateUserBasic: 'update',
       readSportTypes: 'sportType/read',
-      readClubs: 'club/read',
+      readClubs: 'club/read'
     }),
     ...mapActions('userDetail', {
       readUserDetail: 'read',
-      updateUserDetail: 'update',
+      updateUserDetail: 'update'
     }),
-    reset() {
+    reset () {
       this.file = null
       this.image = ''
       this._username = ''
@@ -446,16 +446,15 @@ export default {
       this._contactPhone = ''
       this._contactAddress = ''
     },
-    updateBasic() {
+    updateBasic () {
       this.$validator.validateAll('basic').then(() => {
         this.updateUserBasic({
           username: this.username,
-          email: this.email,
+          email: this.email
         })
-
       }).catch(() => {})
     },
-    updateDetail() {
+    updateDetail () {
       this.$validator.validateAll('detail').then(() => {
         let form = new FormData()
 
@@ -478,11 +477,9 @@ export default {
         form.append('contactAddress', this.contactAddress)
 
         this.updateUserDetail(form)
-
       }).catch(() => {})
-
     },
-    fileChanged(event) {
+    fileChanged (event) {
       const files = event.target.files || event.dataTransfer.files
 
       if (!files.length) return
@@ -490,19 +487,18 @@ export default {
       this.createImage(files[0])
       this.file = files[0]
     },
-    createImage(file) {
-      const image = new Image()
+    createImage (file) {
       const reader = new FileReader()
       reader.onload = (event) => {
         this.image = event.target.result
       }
       reader.readAsDataURL(file)
     },
-    removeImage(event) {
+    removeImage (event) {
       this.image = 'changed'
       this.file = null
     }
-  },
+  }
 }
 </script>
 

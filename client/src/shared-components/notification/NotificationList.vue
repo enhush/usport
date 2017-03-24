@@ -13,12 +13,12 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      notifications: ({ notification }) => notification.notifications,
-    }),
+      notifications: ({ notification }) => notification.notifications
+    })
   },
   components: {
-    Notification,
-  },
+    Notification
+  }
 }
 </script>
 

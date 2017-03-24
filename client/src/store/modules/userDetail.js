@@ -1,10 +1,11 @@
 import * as types from '../mutation-types'
 import api from '@/common/api'
+import helper from '@/common/helper'
 
 const state = {
   userDetail: {
     club: {},
-    sportType: {},
+    sportType: {}
   }
 }
 
@@ -14,41 +15,38 @@ const mutations = {
       club: {},
       sportType: {}
     }, data)
-  },
+  }
 }
 
 const actions = {
 
-  read({ commit, dispatch }) {
-    api.userDetail.get().then(({data: {userDetail}}) => {
+  async read ({ commit, dispatch }) {
+    try {
+      const {data: {userDetail}} = await api.userDetail.get()
       commit(types.SET_USER_DETAIL, userDetail)
-    }).catch(() => {
-      dispatch('logout', {root: true})
-    })
-
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
   },
 
-  update({ commit, dispatch }, payload) {
-    api.userDetail.update(payload).then(({data: {userDetail}}) => {
-      dispatch('showNotification', `Амжилттай`, {root: true})
+  async update ({ commit, dispatch }, payload) {
+    try {
+      const {data: {userDetail}} = await api.userDetail.update(payload)
       commit(types.SET_USER_DETAIL, userDetail)
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
-  },
+      dispatch('showNotification', `Амжилттай`)
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
+  }
 }
 
 const getters = {
 }
-
 
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters,
+  getters
 }

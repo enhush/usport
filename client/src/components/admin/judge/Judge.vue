@@ -38,27 +38,27 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import mixins from '@/common/mixins'
 
 export default {
   mixins: [mixins.routeGuardAdmin],
-  created() {
+  created () {
     this.read()
   },
-  data() {
+  data () {
     return {
     }
   },
   computed: {
     ...mapState('judge', {
-      judges: state => state.judges,
-    }),
+      judges: state => state.judges
+    })
   },
   methods: {
     ...mapActions('judge', [
       'read'
-    ]),
+    ])
   }
 }
 </script>

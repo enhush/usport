@@ -1,38 +1,36 @@
 import * as types from '../mutation-types'
 import api from '@/common/api'
+import helper from '@/common/helper'
 
 const state = {
-  judgeRequests: [],
+  judgeRequests: []
 }
 
 const mutations = {
-  [types.SET_JUDGE_REQUESTS](state, data) {
+  [types.SET_JUDGE_REQUESTS] (state, data) {
     state.judgeRequests = data
-  },
+  }
 }
 
 const actions = {
 
-  read({ commit, dispatch }) {
-    api.judgeRequest.read().then(({data: {data: judgeRequests}}) => {
-      commit(types.SET_JUDGE_REQUESTS, judges)
-    }).catch(({response: {data: {message = 'Алдаа'}}}) => {
-      dispatch('showNotification', message, {root: true})
-      if (message.includes("jwt-error")) {
-        dispatch('logout', {root: true})
-      }
-    })
+  async read ({ commit, dispatch }) {
+    try {
+      const {data: {data: judgeRequests}} = await api.judgeRequest.read()
+      commit(types.SET_JUDGE_REQUESTS, judgeRequests)
+    } catch (e) {
+      helper.apiError(e, dispatch)
+    }
   }
 }
 
 const getters = {
 }
 
-
 export default {
   namespaced: true,
   state,
   mutations,
   actions,
-  getters,
+  getters
 }
