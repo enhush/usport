@@ -46,7 +46,6 @@ class User(Resource):
 
         username = args.get('username')
         email = args.get('email')
-
         try:
 
             user = UserModel.query.get(g.user.id)
